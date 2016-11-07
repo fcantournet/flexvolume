@@ -22,7 +22,7 @@ func Commands(fv FlexVolume) []cli.Command {
 			Action: func(c *cli.Context) error {
 				var opts map[string]string
 
-				if err := json.Unmarshal([]byte(c.Args().Get(1)), &opts); err != nil {
+				if err := json.Unmarshal([]byte(c.Args().Get(0)), &opts); err != nil {
 					return err
 				}
 
@@ -33,7 +33,7 @@ func Commands(fv FlexVolume) []cli.Command {
 			Name:  "detach",
 			Usage: "Detach the volume",
 			Action: func(c *cli.Context) error {
-				return handle(fv.Detach(c.Args().Get(1)))
+				return handle(fv.Detach(c.Args().Get(0)))
 			},
 		},
 		{
@@ -42,18 +42,18 @@ func Commands(fv FlexVolume) []cli.Command {
 			Action: func(c *cli.Context) error {
 				var opts map[string]string
 
-				if err := json.Unmarshal([]byte(c.Args().Get(1)), &opts); err != nil {
+				if err := json.Unmarshal([]byte(c.Args().Get(2)), &opts); err != nil {
 					return err
 				}
 
-				return handle(fv.Mount(c.Args().Get(1), c.Args().Get(2), opts))
+				return handle(fv.Mount(c.Args().Get(0), c.Args().Get(1), opts))
 			},
 		},
 		{
 			Name:  "umount",
 			Usage: "Mount the volume",
 			Action: func(c *cli.Context) error {
-				return handle(fv.Unmount(c.Args().Get(1)))
+				return handle(fv.Unmount(c.Args().Get(0)))
 			},
 		},
 	}
